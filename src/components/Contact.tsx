@@ -1,0 +1,22 @@
+import React from "react";
+
+const Contact = () => {
+  return (
+    <section id="contact" className="py-20 bg-white">
+      <div className="container mx-auto px-6 max-w-xl text-center">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Get In Touch</h2>
+        <p className="text-gray-700 text-base mb-8">
+          I'm open to internship opportunities and happy to connect. Feel free to reach out by email!
+        </p>
+        <a
+          href="/contactdetails"
+          className="inline-block px-6 py-2 rounded bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors text-base"
+        >
+          Say Hello
+        </a>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
