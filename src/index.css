@@ -1,9 +1,12 @@
+/* ---------------- MUST BE FIRST ---------------- */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ---------------- TAILWIND CORE ---------------- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
+/* ---------------- CUSTOM LAYERS ---------------- */
 @layer base {
   :root {
     --background: 222 47% 6%;
@@ -36,7 +39,6 @@
 
     --radius: 0.75rem;
 
-    /* Custom tokens */
     --gradient-primary: linear-gradient(135deg, hsl(174 72% 56%), hsl(190 80% 45%));
     --gradient-card: linear-gradient(145deg, hsl(222 47% 10%), hsl(222 47% 8%));
     --shadow-glow: 0 0 40px hsl(174 72% 56% / 0.15);

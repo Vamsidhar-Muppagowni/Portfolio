@@ -31,26 +31,26 @@ const skills = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-20 bg-white">
+    <section id="skills" className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-6 max-w-4xl">
-        <h2 className="text-2xl md:text-3xl font-bold mb-10 text-gray-900 text-center">Skills</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-10 text-gray-900 dark:text-gray-100 text-center">Skills</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map((skill) => (
             <div
               key={skill.category}
-              className="bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm"
+              className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 flex flex-col shadow-sm"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 rounded-md bg-blue-100 text-blue-600">
                   <skill.icon className="w-5 h-5" />
                 </div>
-                <h3 className="font-mono font-semibold text-gray-800">{skill.category}</h3>
+                <h3 className="font-mono font-semibold text-gray-800 dark:text-gray-200">{skill.category}</h3>
               </div>
               <ul className="space-y-2">
                 {skill.items.map((item) => (
                   <li
                     key={item}
-                    className="text-gray-600 text-sm flex items-center gap-2"
+                    className="text-gray-600 dark:text-gray-300 text-sm flex items-center gap-2"
                   >
                     <span className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
                     {item}
