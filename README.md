@@ -15,7 +15,7 @@ A modern personal portfolio built to highlight my work, skills, and journey.
 (Attach screenshots or a demo GIF here if available)
 
 ## 🔗 Live Demo
-[Click here to view](#) *(Add deployed link once live)*
+[Click here to view](https://portfolio-vamsidhar-51.vercel.app/) *(Add deployed link once live)*
 
 ---
 
