@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
+
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -47,12 +49,13 @@ const Navbar = () => {
           <Button onClick={toggleTheme} className="px-3 py-2 text-sm font-mono border border-gray-400 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
             {theme === "light" ? "🌙 Dark" : "☀️ Light"}
           </Button>
-          <a
-            href="/contactdetails"
-            className="px-4 py-2 rounded border border-gray-400 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-sm"
-          >
-            Get In Touch
-          </a>
+          <Link
+  to="/contactdetails"
+  className="px-4 py-2 rounded border border-gray-400 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-sm"
+>
+  Get In Touch
+</Link>
+
         </div>
       </div>
     </nav>
