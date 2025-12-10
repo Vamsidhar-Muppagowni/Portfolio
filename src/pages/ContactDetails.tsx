@@ -14,7 +14,7 @@ const contactLinks = [
   {
     label: "LinkedIn",
     value: "linkedin.com/in/vamsidhar-muppagowni",
-    href: "https://www.linkedin.com/in/vamsidhar-muppagowni",
+    href: "https://www.linkedin.com/in/vamsidhar-muppagowni-723797382",
   },
   {
     label: "GitHub",
@@ -45,5 +45,6 @@ const ContactDetails = () => (
     </div>
   </section>
 );
+
 
 export default ContactDetails;
