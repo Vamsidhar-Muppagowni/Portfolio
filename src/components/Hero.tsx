@@ -38,8 +38,8 @@ const Hero = () => {
 
           {/* ANIMATED RESUME BUTTON */}
           <a
-            href="public/CB.SC.U4CSE23163.pdf"
-            download
+            href="/Vamsidhar_Muppagowni_Resume.pdf" 
+            download="Vamsidhar_Muppagowni_Resume.pdf"
             className="group relative inline-flex h-12 w-32 items-center justify-center overflow-hidden rounded border border-gray-400 bg-transparent px-6 font-medium text-gray-700 shadow-sm transition-all duration-300 hover:w-56 hover:bg-gray-100 hover:text-gray-900 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white"
           >
             {/* View 1: Default (Icon + "Resume") - Slides UP on hover */}
