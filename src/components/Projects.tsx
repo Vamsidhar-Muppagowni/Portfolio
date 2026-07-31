@@ -1,130 +1,88 @@
-import React from "react";
-import { ExternalLink, Folder, Github } from "lucide-react";
-import { motion } from "framer-motion";
+import { FiGithub, FiExternalLink, FiFolder } from "react-icons/fi";
 
-const projects = [
+const projectsData = [
   {
     title: "Edge-Based V2X Protocol",
-    description:
-      "Optimized emergency traffic response using fuzzy logic and genetic algorithms. Simulated smart city rerouting strategies using SUMO.",
-    technologies: ["SUMO", "Python", "Genetic Algorithms", "Fuzzy Logic"],
-    type: "Algorithms & Networking",
-    github: "https://github.com/23CSE362-edge-computing-2025-26-odd/capstone-project-12_powerrangers.git",
+    desc: "Designed a vehicular communication protocol leveraging Edge and Fog computing.",
+    tech: ["Python", "Edge Computing", "IoT"],
+    github: "#"
   },
   {
-    title: "ShopsBuzz – E-Commerce Platform",
-    description:
-      "Full-stack e-commerce system with MySQL, secure authentication, order workflows, and catalog management.",
-    technologies: ["JavaScript", "MySQL", "HTML/CSS", "Express", "Node.js"],
-    type: "Full-Stack Development",
-    github: "https://github.com/Sandeep-Merugumala/ShopsBuzz.git",
-    live: "https://www.shopsbuzz.shop/",
+    title: "ShopsBuzz",
+    desc: "A MERN stack application mapping local shops to an e-commerce platform.",
+    tech: ["MongoDB", "Express", "React", "Node.js"],
+    github: "#"
   },
   {
-    title: "STM32F4 Soil & Water Monitoring System",
-    description:
-      "Built a soil & water monitoring system with ADC sensing, UART diagnostics, pump automation, and I2C-LCD visualization.",
-    technologies: ["Embedded C", "STM32 HAL", "ADC", "I2C", "UART", "GPIO"],
-    type: "Embedded Systems",
-    github: "https://github.com/Vamsidhar-Muppagowni/STM32_Smart_Irrigation.git",
+    title: "STM32F4 Soil Monitoring",
+    desc: "Embedded system to monitor soil moisture using STM32F4 microcontrollers.",
+    tech: ["C", "STM32", "Hardware"],
+    github: "#"
   },
   {
-    title: "Food Preparation Menu Generator",
-    description:
-      "Web app that suggests recipes based on available ingredients with an intuitive UI and detailed cooking steps.",
-    technologies: ["HTML", "CSS", "JavaScript", "Node.js"],
-    type: "Front-End Development",
-    github: "https://github.com/your-link-here",
+    title: "Food Preparation Time Prediction",
+    desc: "Machine learning model to predict food preparation times for restaurants.",
+    tech: ["Python", "Scikit-Learn", "Pandas"],
+    github: "#"
   },
   {
-    title: "Traffic Management Path Optimization",
-    description:
-      "Implemented Dijkstra and A* algorithms for real-time vehicle routing with live traffic visualization.",
-    technologies: ["Data Structures", "Algorithms", "Dijkstra", "A*"],
-    type: "Algorithms & Optimization",
-    github: "https://github.com/your-link-here",
+    title: "Traffic Management System",
+    desc: "A computer vision based traffic density management system.",
+    tech: ["Python", "OpenCV", "YOLO"],
+    github: "#"
   },
   {
-    title: "Crash Detection System",
-    description:
-      "Embedded crash detection using potentiometer + distance sensors. Built and tested in Tinkercad.",
-    technologies: ["C", "Embedded Systems", "Tinkercad", "Sensors"],
-    type: "Embedded Systems",
-    github: "https://github.com/your-link-here",
-  },
+    title: "Crash Detection Using Dashcam",
+    desc: "AI system to detect vehicular crashes automatically from dashcam footage.",
+    tech: ["Python", "TensorFlow", "Computer Vision"],
+    github: "#"
+  }
 ];
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-6 max-w-5xl">
-        <h2 className="text-2xl md:text-3xl font-bold mb-10 text-gray-900 dark:text-gray-100 text-center">
-          Projects
-        </h2>
+    <section id="projects" className="py-24 bg-background">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="mb-12">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            More Projects
+          </h2>
+          <p className="text-muted-foreground max-w-2xl text-lg">
+            A deeper dive into the technical solutions I've built.
+          </p>
+        </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="bg-gray-50 dark:bg-gray-800 border-2 border-gray-300 dark:border-white rounded-lg p-6 flex flex-col shadow-sm"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projectsData.map((project, idx) => (
+            <div 
+              key={idx} 
+              className="bento-card flex flex-col justify-between h-full group cursor-pointer"
             >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <Folder className="w-8 h-8 text-blue-500" />
-                  <span className="text-xs font-mono text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-2 py-0.5 rounded">
-                    {project.type}
-                  </span>
+              <div>
+                <div className="flex justify-between items-center mb-6">
+                  <div className="text-blue-500">
+                    <FiFolder size={32} />
+                  </div>
+                  <div className="flex gap-3 text-muted-foreground group-hover:text-foreground transition-colors">
+                    <a href={project.github} className="hover:text-blue-500"><FiGithub size={20} /></a>
+                    <a href="#" className="hover:text-blue-500"><FiExternalLink size={20} /></a>
+                  </div>
                 </div>
-
-                <div className="flex items-center gap-1">
-                  {/* @ts-ignore */}
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Live Demo"
-                      title="Go Live"
-                      className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-                    >
-                      <ExternalLink className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-                    </a>
-                  )}
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="GitHub Repository"
-                    className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-                  >
-                    <Github className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-                  </a>
-                </div>
+                
+                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-blue-500 transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                  {project.desc}
+                </p>
               </div>
-
-              <h3 className="font-mono font-semibold text-lg mb-3 text-gray-800 dark:text-gray-200">
-                {project.title}
-              </h3>
-
-              <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed flex-1 mb-4">
-                {project.description}
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-xs font-mono text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded"
-                  >
-                    {tech}
-                  </span>
+              
+              <ul className="flex flex-wrap gap-3 mt-auto font-mono text-xs text-muted-foreground">
+                {project.tech.map(t => (
+                  <li key={t}>{t}</li>
                 ))}
-              </div>
-            </motion.div>
+              </ul>
+            </div>
           ))}
         </div>
       </div>

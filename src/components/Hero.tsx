@@ -1,61 +1,172 @@
-import { Download } from "lucide-react";
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { motion } from 'framer-motion';
+import { FiArrowDown, FiDownload } from 'react-icons/fi';
 
 const Hero = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Set up scene, camera, and renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    containerRef.current.appendChild(renderer.domElement);
+
+    // Create particles
+    const particlesCount = 3000;
+    const positions = new Float32Array(particlesCount * 3);
+
+    for (let i = 0; i < particlesCount; i++) {
+      // Random positions in a sphere
+      const u = Math.random();
+      const v = Math.random();
+      const theta = u * 2.0 * Math.PI;
+      const phi = Math.acos(2.0 * v - 1.0);
+      const r = Math.cbrt(Math.random()) * 2.5;
+
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = r * Math.cos(phi);
+
+      positions[i * 3] = x;
+      positions[i * 3 + 1] = y;
+      positions[i * 3 + 2] = z;
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.PointsMaterial({
+      color: 0x3b82f6,
+      size: 0.015,
+      transparent: true,
+      opacity: 0.8,
+      sizeAttenuation: true
+    });
+
+    const particlesMesh = new THREE.Points(geometry, material);
+    scene.add(particlesMesh);
+
+    camera.position.z = 2;
+
+    // Animation Loop
+    let animationFrameId: number;
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const handleMouseMove = (event: MouseEvent) => {
+      mouseX = (event.clientX / window.innerWidth) - 0.5;
+      mouseY = (event.clientY / window.innerHeight) - 0.5;
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+
+    const animate = () => {
+      animationFrameId = requestAnimationFrame(animate);
+
+      // Slow rotation
+      particlesMesh.rotation.y -= 0.002;
+      particlesMesh.rotation.x += 0.001;
+      
+      // Mouse interaction
+      particlesMesh.rotation.x += mouseY * 0.01;
+      particlesMesh.rotation.y += mouseX * 0.01;
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+
+    // Handle Resize
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+      
+      geometry.dispose();
+      material.dispose();
+      renderer.dispose();
+      
+      if (containerRef.current && renderer.domElement) {
+        containerRef.current.removeChild(renderer.domElement);
+      }
+    };
+  }, []);
+
   return (
-    <section className="min-h-screen flex items-center justify-center pt-20 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-6 max-w-3xl text-center">
-        <p className="font-mono text-gray-600 dark:text-gray-300 mb-4">Hi, I'm</p>
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-          Vamsidhar Muppagowni
-        </h1>
-        <h2 className="text-3xl md:text-5xl font-semibold text-gray-700 dark:text-gray-200 mb-6">
-          I build things for the web.
-        </h2>
-        <p className="text-lg text-gray-700 dark:text-gray-200 max-w-xl mx-auto mb-8 leading-relaxed">
-          A highly motivated Computer Science student passionate about software development
-          and machine learning. Currently pursuing my degree at
-          <span className="text-blue-600"> Amrita Vishwa Vidyapeetham</span>.
-        </p>
+    <section id="home" className="relative w-full h-screen bg-background overflow-hidden flex items-center justify-center">
+      {/* 3D Background */}
+      <div ref={containerRef} className="absolute inset-0 z-0 opacity-40" />
 
-        {/* Buttons Container */}
-        <div className="flex flex-wrap gap-4 justify-center items-center">
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col items-center text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-500 font-mono text-xs mb-8"
+        >
+          Available for new opportunities
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+          className="text-5xl md:text-7xl lg:text-[6rem] font-bold text-foreground tracking-tighter mb-6"
+        >
+          Vamsidhar Muppagowni<span className="text-blue-500">.</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="text-lg md:text-xl text-muted-foreground max-w-2xl font-light mb-12"
+        >
+          A highly motivated Computer Science student passionate about <strong className="text-foreground font-semibold">software development</strong> and <strong className="text-foreground font-semibold">machine learning</strong>.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row items-center gap-4"
+        >
+          <a
+            href="#bento"
+            className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-foreground text-background font-mono text-sm transition-transform hover:scale-105"
+          >
+            Explore My Work <FiArrowDown />
+          </a>
           
-          {/* View My Work Button */}
           <a
-            href="#projects"
-            className="px-6 py-3 rounded bg-blue-600 text-white font-medium hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors text-base"
-          >
-            View My Work
-          </a>
-
-          {/* Contact Me Button */}
-          <a
-            href="#contact"
-            className="px-6 py-3 rounded border border-gray-400 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-base"
-          >
-            Contact Me
-          </a>
-
-          {/* ANIMATED RESUME BUTTON */}
-          <a
-            href="/Vamsidhar_Muppagowni_Resume.pdf" 
+            href="/Vamsidhar_Muppagowni_Resume.pdf"
             download="Vamsidhar_Muppagowni_Resume.pdf"
-            className="group relative inline-flex h-12 w-32 items-center justify-center overflow-hidden rounded border border-gray-400 bg-transparent px-6 font-medium text-gray-700 shadow-sm transition-all duration-300 hover:w-56 hover:bg-gray-100 hover:text-gray-900 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white"
+            className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-transparent text-foreground border border-border hover:border-foreground transition-all hover:scale-105 font-mono text-sm"
           >
-            {/* View 1: Default (Icon + "Resume") - Slides UP on hover */}
-            <div className="absolute inset-0 flex items-center justify-center gap-2 transition-all duration-300 group-hover:-translate-y-full">
-              <Download className="h-4 w-4" />
-              <span>Resume</span>
-            </div>
-
-            {/* View 2: Hover (Icon + "Download My Resume") - Slides IN from bottom */}
-            <div className="absolute inset-0 flex items-center justify-center gap-2 translate-y-full transition-all duration-300 group-hover:translate-y-0">
-              <Download className="h-4 w-4" />
-              <span className="whitespace-nowrap">Download My Resume</span>
-            </div>
+            Download Resume <FiDownload />
           </a>
-          
-        </div>
+        </motion.div>
+      </div>
+
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-muted-foreground">
+        <FiArrowDown size={24} />
       </div>
     </section>
   );
