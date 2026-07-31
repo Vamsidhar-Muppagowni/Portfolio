@@ -1,16 +1,10 @@
-
 const Footer = () => {
   return (
-    <footer className="py-8 border-t border-gray-200 bg-white">
-      <div className="container mx-auto px-6">
-        <div className="text-center">
-          <p className="text-sm text-gray-600">
-            Designed &amp; Built by <span className="font-semibold text-gray-800">Vamsidhar Muppagowni</span>
-          </p>
-          <p className="text-xs text-gray-400 mt-2">
-            © {new Date().getFullYear()} All rights reserved.
-          </p>
-        </div>
+    <footer className="w-full bg-background border-t border-border py-8 text-center">
+      <div className="max-w-7xl mx-auto px-6">
+        <p className="text-muted-foreground font-mono text-sm">
+          &copy; {new Date().getFullYear()} Vamsidhar Muppagowni. Built with React & Three.js.
+        </p>
       </div>
     </footer>
   );
